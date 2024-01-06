@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -108,6 +109,14 @@ func bookTicket(
 	email string,
 ) {
 	remainingTickets = remainingTickets - userTickets
+
+	// create a map for a user
+	userData := make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
 	bookings = append(bookings, firstName+" "+lastName)
 
 	fmt.Printf(
