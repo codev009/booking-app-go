@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+
+	"booking_app/helper"
 )
 
 const conferenceTickets int = 50
@@ -21,11 +23,12 @@ func main() {
 
 		firstName, lastName, email, userTickets := getUserInputs()
 
-		isValidName, isValidEmail, isValidTicketNumber := validateUserInputs(
+		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInputs(
 			firstName,
 			lastName,
 			email,
 			userTickets,
+			remainingTickets,
 		)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
@@ -47,10 +50,10 @@ func main() {
 			}
 		} else {
 			if !isValidName {
-				fmt.Printf("The first name or the last name you entered is too short. Please enter atleast two characters.")
+				fmt.Printf("The first name or the last name you entered is too short. Please enter atleast two characters.\n")
 			}
 			if !isValidEmail {
-				fmt.Printf("Email address you entered does not contain @.")
+				fmt.Printf("Email address you entered does not contain @.\n")
 			}
 			if !isValidTicketNumber {
 				fmt.Printf("The number of tickets you entered is invalid.\n")
@@ -76,18 +79,6 @@ func getFirstNames() []string {
 		firstNames = append(firstNames, names[0])
 	}
 	return firstNames
-}
-
-func validateUserInputs(
-	firstName string,
-	lastName string,
-	email string,
-	userTickets uint,
-) (bool, bool, bool) {
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
-	return isValidName, isValidEmail, isValidTicketNumber
 }
 
 func getUserInputs() (string, string, string, uint) {
