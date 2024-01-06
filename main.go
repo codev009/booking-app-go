@@ -21,7 +21,7 @@ func main() {
 
 		firstName, lastName, email, userTickets := getUserInputs()
 
-		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInputs(
+		isValidName, isValidEmail, isValidTicketNumber := validateUserInputs(
 			firstName,
 			lastName,
 			email,
