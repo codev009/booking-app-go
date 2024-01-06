@@ -15,23 +15,7 @@ func main() {
 
 	for {
 
-		var firstName string
-		var lastName string
-		var email string
-		var userTickets uint
-
-		// Ask user for their name
-		fmt.Println("Enter your first name: ")
-		fmt.Scan(&firstName)
-
-		fmt.Println("Enter your lastName: ")
-		fmt.Scan(&lastName)
-
-		fmt.Println("Enter your email: ")
-		fmt.Scan(&email)
-
-		fmt.Println("Enter number of tickets: ")
-		fmt.Scan(&userTickets)
+		firstName, lastName, email, userTickets := getUserInputs()
 
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInputs(
 			firstName,
@@ -107,4 +91,26 @@ func validateUserInputs(
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
 	return isValidName, isValidEmail, isValidTicketNumber
+}
+
+func getUserInputs() (string, string, string, uint) {
+	var firstName string
+	var lastName string
+	var email string
+	var userTickets uint
+
+	// Ask user for their name
+	fmt.Println("Enter your first name: ")
+	fmt.Scan(&firstName)
+
+	fmt.Println("Enter your lastName: ")
+	fmt.Scan(&lastName)
+
+	fmt.Println("Enter your email: ")
+	fmt.Scan(&email)
+
+	fmt.Println("Enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
+	return firstName, lastName, email, userTickets
 }
