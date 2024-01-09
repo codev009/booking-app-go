@@ -24,51 +24,48 @@ type UserData struct {
 func main() {
 	greetUsers()
 
-	for {
+	firstName, lastName, email, userTickets := getUserInputs()
 
-		firstName, lastName, email, userTickets := getUserInputs()
+	isValidName, isValidEmail, isValidTicketNumber := validateUserInputs(
+		firstName,
+		lastName,
+		email,
+		userTickets,
+		remainingTickets,
+	)
 
-		isValidName, isValidEmail, isValidTicketNumber := validateUserInputs(
+	if isValidName && isValidEmail && isValidTicketNumber {
+
+		bookTicket(
+			userTickets,
 			firstName,
 			lastName,
 			email,
+		)
+		go sendTicket(
 			userTickets,
-			remainingTickets,
+			firstName,
+			lastName,
+			email,
 		)
 
-		if isValidName && isValidEmail && isValidTicketNumber {
+		firstNames := getFirstNames()
+		fmt.Printf("The first names of bookings are: %v\n", firstNames)
 
-			bookTicket(
-				userTickets,
-				firstName,
-				lastName,
-				email,
-			)
-			go sendTicket(
-				userTickets,
-				firstName,
-				lastName,
-				email,
-			)
-
-			firstNames := getFirstNames()
-			fmt.Printf("The first names of bookings are: %v\n", firstNames)
-
-			if remainingTickets == 0 {
-				// end program
-				fmt.Println("Our conference is booked out. Come back next year.")
-				break
-			}
-		} else {
-			if !isValidName {
-				fmt.Printf("The first name or the last name you entered is too short. Please enter atleast two characters.\n")
-			}
-			if !isValidEmail {
-				fmt.Printf("Email address you entered does not contain @.\n")
-			}
-			if !isValidTicketNumber {
-				fmt.Printf("The number of tickets you entered is invalid.\n")
-			}
+		if remainingTickets == 0 {
+			// end program
+			fmt.Println("Our conference is booked out. Come back next year.")
+			// break
+		}
+	} else {
+		if !isValidName {
+			fmt.Printf("The first name or the last name you entered is too short. Please enter atleast two characters.\n")
+		}
+		if !isValidEmail {
+			fmt.Printf("Email address you entered does not contain @.\n")
+		}
+		if !isValidTicketNumber {
+			fmt.Printf("The number of tickets you entered is invalid.\n")
 		}
 	}
 }
