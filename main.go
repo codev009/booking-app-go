@@ -44,7 +44,7 @@ func main() {
 				lastName,
 				email,
 			)
-			sendTicket(
+			go sendTicket(
 				userTickets,
 				firstName,
 				lastName,
